@@ -10,6 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+
 func RegisterUserRoute(c *fiber.Ctx) error {
 	user := types.Employee{}
 

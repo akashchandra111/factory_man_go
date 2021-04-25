@@ -6,6 +6,7 @@ import (
 	"github.com/akashchandra111/factory_man/src/configs" // Configs
 
 	"github.com/gofiber/fiber/v2" // Fiber import
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -17,12 +18,21 @@ func main() {
 		panic(err)
 	}
 
+	app.Use(
+		cors.New(
+			cors.Config	{
+				AllowOrigins: "*",
+				AllowHeaders: "",
+			},
+		),
+	)
+
 	app.Get("/app/jobs", configs.GetAllJobsRoute)
 	app.Get("/app/get/users/job_id/:job", configs.GetEmployeesByJobIdRoute)
 	app.Get("/app/get/salary/emp_id/:empId", configs.GetSalaryByEmpIdRoute)
 	app.Get("/app/get/advance/emp_id/:empId", configs.GetAdvanceSalaryByEmpIdRoute)
 	app.Get("/app/get/making_job/emp_id/:empId", configs.GetMakingJobByEmpIdRoute)
-	app.Get("/app/get/making_job/job_id/:empId", configs.GetMakingJobByJobIdRoute)
+	app.Get("/app/get/making_job/job_id/:jobId", configs.GetMakingJobByJobIdRoute)
 	app.Get("/app/get/making_job/date/:date", configs.GetMakingJobByDateRoute)
 
 	app.Post("/app/get/user", configs.GetUserRoute)

@@ -9,9 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var (
-	dbRef *sql.DB = nil
-
+const (
 	selectUserByMobile     string = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, DOB, MOBILE_NO, PASSWORD, EMP_TYPE, SUB_EMP_TYPE, IS_WORKING, IS_SALARIED, SALARY, ADVANCE, JOB_ID FROM EMPLOYEE WHERE MOBILE_NO=? AND PASSWORD=?"
 	selectJobById          string = "SELECT JOB_ID, JOB_TYPE, JOB_SUBTYPE, JOB_SUBTYPE_NAME, IS_RC_OR_STONE FROM JOB WHERE JOB_ID=?"
 	selectAllJobs          string = "SELECT JOB_ID, JOB_TYPE, JOB_SUBTYPE, JOB_SUBTYPE_NAME, IS_RC_OR_STONE FROM JOB"
@@ -28,6 +26,8 @@ var (
 	insertAdvanceSalary string = "INSERT INTO ADVANCE_SALARY(EMP_ID, ADVANCE_AMOUNT, ADVANCE_DATE) VALUES (?,?,?)"
 	insertMakingJob     string = "INSERT INTO MAKING_JOB(EMP_ID, JOB_ID, TOTAL_ITEMS_MADE, MAKING_DATE, PAID_AMOUNT) VALUES (?,?,?,?,?)"
 )
+
+var dbRef *sql.DB = nil
 
 func InitDB() error {
 	db, err := sql.Open("sqlite3", "./factory_man.db")
